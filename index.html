@@ -1,54 +1,146 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>郭宥均的自我介紹</title>
-    <style>
-        body {
-            font-family: "微軟正黑體", sans-serif;
-            background-color: #f0f8ff;
-            color: #333;
-            padding: 40px;
-        }
-        .container {
-            max-width: 700px;
-            margin: auto;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            padding: 30px;
-        }
-        h1 {
-            color: #007acc;
-            text-align: center;
-        }
-        img {
-            width: 150px;
-            border-radius: 50%;
-            display: block;
-            margin: 0 auto 20px;
-        }
-        p {
-            line-height: 1.8;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>自我介紹</title>
+  <style>
+    :root{--bg:#f6f8fb;--card:#ffffff;--accent:#1565c0;--muted:#64748b}
+    *{box-sizing:border-box}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,'Noto Sans TC',sans-serif;margin:0;background:var(--bg);color:#0f172a}
+    .container{max-width:900px;margin:36px auto;padding:24px}
+    header{display:flex;gap:16px;align-items:center}
+    .avatar{width:96px;height:96px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#3aa0ff);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:28px}
+    h1{margin:0;font-size:1.6rem}
+    p.lead{margin:6px 0 0;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:20px;margin-top:20px}
+    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(12,18,31,0.06)}
+    .section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+    .chips{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{padding:6px 10px;border-radius:999px;background:#eef6ff;color:var(--accent);font-size:0.9rem}
+    ul{padding-left:18px;margin:0}
+    .timeline{border-left:2px solid #eef2ff;padding-left:14px}
+    .timeline-item{margin-bottom:12px;padding-left:10px}
+    .muted{color:var(--muted);font-size:0.95rem}
+    /* small screens */
+    @media (max-width:880px){.grid{grid-template-columns:1fr;}
+      .avatar{width:78px;height:78px;font-size:22px}}
+    /* editable helpers */
+    .edit-hint{font-size:0.85rem;color:var(--muted);margin-top:8px}
+    .controls{display:flex;gap:8px}
+    .btn{border:0;padding:8px 12px;border-radius:8px;background:var(--accent);color:white;cursor:pointer}
+    .btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(21,101,192,0.12)}
+  </style>
 </head>
 <body>
-    <div class="container">
-        <img src="https://via.placeholder.com/150" alt="郭宥均的照片">
-        <h1>你好，我是郭宥均！</h1>
-        <p>
-            我畢業於大同高中，對於探索新知和學習技能充滿熱忱。
-            在學期間，我積極參與各種活動，也養成了良好的自我管理與團隊合作能力。
-        </p>
-        <p>
-            我的興趣包括彈吉他、打麻將以及打桌球。
-            音樂讓我放鬆心情，桌球與麻將則是我與朋友們交流的好方式。
-        </p>
-        <p>
-            如有需要與我聯繫，歡迎撥打：<a href="tel:0902152088">0902-152-088</a>
-        </p>
+  <div class="container">
+    <header>
+      <div class="avatar" aria-hidden="true">YJ</div>
+      <div>
+        <h1 id="name">姓名：你的名字</h1>
+        <p class="lead" id="headline">職稱／科系 | 例如：資訊工程學生 ／ 前端開發實習生</p>
+        <p class="edit-hint">提示：直接在 HTML 裡替換文字即可。下方區塊已把興趣與學習經歷分開，方便閱讀或列印。</p>
+      </div>
+    </header>
+
+    <div class="grid" role="main">
+      <main class="card">
+        <div class="section-title">
+          <h2 style="margin:0">關於我</h2>
+          <div class="controls">
+            <button class="btn" onclick="downloadHTML()">下載 HTML</button>
+            <button class="btn ghost" onclick="toggleTheme()">切換深色</button>
+          </div>
+        </div>
+        <p id="about">這裡放一段 2–3 句的個人介紹，例如你的強項、目前在做的事或求職方向。例：我是具有 Web 前端開發興趣的大學生，擅長 HTML、CSS、JavaScript，喜歡把 UI 做得乾淨俐落。</p>
+
+        <hr style="margin:18px 0;border:none;border-top:1px solid #f1f5f9">
+
+        <section aria-labelledby="interests-title" style="margin-bottom:14px">
+          <div class="section-title">
+            <h3 id="interests-title" style="margin:0">興趣（Interests）</h3>
+          </div>
+          <div class="chips" id="interests">
+            <!-- 將興趣放在這裡作為 chip 列表，方便視覺區隔 -->
+            <span class="chip">程式設計</span>
+            <span class="chip">攝影</span>
+            <span class="chip">籃球</span>
+          </div>
+          <p class="edit-hint">提示：修改或新增 &lt;span class="chip"&gt; 標籤來變更興趣。</p>
+        </section>
+
+        <section aria-labelledby="skills-title">
+          <div class="section-title">
+            <h3 id="skills-title" style="margin:0">技能（Skills）</h3>
+            <span class="muted">熟悉程度可用百分比或星號補充</span>
+          </div>
+          <ul id="skills">
+            <li>HTML / CSS / JavaScript</li>
+            <li>React / Vue（基礎）</li>
+            <li>Git / 版本控制</li>
+          </ul>
+        </section>
+
+      </main>
+
+      <aside>
+        <div class="card" style="margin-bottom:18px">
+          <div class="section-title">
+            <h3 style="margin:0">學習經歷（Learning Experience）</h3>
+            <span class="muted">時間順序由近到遠</span>
+          </div>
+          <div class="timeline" id="education">
+            <!-- timeline item 範例：複製並修改內容來新增經歷 -->
+            <div class="timeline-item">
+              <div style="font-weight:600">國立某某大學 — 資訊工程系</div>
+              <div class="muted">2022 — 2026（預計）</div>
+              <div class="muted" style="margin-top:6px">主修：演算法、網頁設計。參與校內專題與實習。</div>
+            </div>
+
+            <div class="timeline-item">
+              <div style="font-weight:600">前端開發實習 — 某科技公司</div>
+              <div class="muted">2024.07 — 2024.09</div>
+              <div class="muted" style="margin-top:6px">負責 UI 切版、優化頁面載入速度與撰寫元件。</div>
+            </div>
+          </div>
+          <p class="edit-hint">提示：在 &lt;div class="timeline-item"&gt; 中新增項目，可加入更多學習或實務經歷。</p>
+        </div>
+
+        <div class="card">
+          <h4 style="margin-top:0">聯絡方式</h4>
+          <p class="muted" id="contact">電子郵件：youremail@example.com<br>LinkedIn / GitHub：你的連結</p>
+        </div>
+      </aside>
     </div>
+  </div>
+
+  <script>
+    // 小工具：下載目前 HTML
+    function downloadHTML(){
+      const blob = new Blob([document.documentElement.outerHTML],{type:'text/html'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = '自我介紹.html';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    // 切換深色主題（簡單示範）
+    function toggleTheme(){
+      if(document.documentElement.style.getPropertyValue('--bg') === ''){
+        document.documentElement.style.setProperty('--bg','#071327');
+        document.documentElement.style.setProperty('--card','#0b1220');
+        document.documentElement.style.setProperty('--accent','#3aa0ff');
+        document.documentElement.style.setProperty('--muted','#9fb4c9');
+        document.body.style.color = '#e6eef8';
+      } else {
+        document.documentElement.style.setProperty('--bg','#f6f8fb');
+        document.documentElement.style.setProperty('--card','#ffffff');
+        document.documentElement.style.setProperty('--accent','#1565c0');
+        document.documentElement.style.setProperty('--muted','#64748b');
+        document.body.style.color = '#0f172a';
+      }
+    }
+  </script>
 </body>
 </html>
